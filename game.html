@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bat Ball stump game</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        #btn1{
+            background-color: aqua;
+        }
+        #btn2{
+            background-color: rgb(242, 6, 148);
+        }
+        #btn3{
+            background-color: rgb(244, 150, 9);
+        }
+        #btn4{
+            background-color: red;
+        }
+        .btn{
+            margin: 10px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 20px;
+            border-radius:10px ;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .btn:hover{
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Bat Ball Stump Game</h1>
+    
+    
+    <button onclick="
+    let computerChoice = generateComputerChoice();
+    let resultMsg = getResult('Bat', computerChoice);
+    showResult('Bat', computerChoice, resultMsg);
+    display(userWin,computerwin,tie);
+    " 
+    id="btn1" class="btn">Bat 🏏</button>
+  
+    <button onclick="
+      computerChoice = generateComputerChoice();
+      resultMsg = getResult('Ball', computerChoice);
+      showResult('Ball', computerChoice, resultMsg);
+      display(userWin,computerwin,tie);
+      
+    " id="btn2" class="btn">Ball 🥎</button>
+  
+    <button onclick="
+      computerChoice = generateComputerChoice();
+      resultMsg = getResult('Stump', computerChoice);
+      showResult('Stump', computerChoice, resultMsg);
+      display(userWin,computerwin,tie);
+    " id="btn3" class="btn">Stump</button>
+
+    <button onclick="userWin = 0; computerwin=0; tie = 0; 
+    display(userWin,computerwin,tie)"id="btn4" class="btn">Reset</button>
+
+    <h1 id="item1"></h1>
+    <h1 id="item2"></h1>
+    <h1 id="item3"></h1>
+    <script>
+      function generateComputerChoice() {
+        //This will generate random number between 0 and 3
+        let randomNumber = Math.random() * 3;
+        if (randomNumber > 0 && randomNumber <= 1) {
+          return 'Bat';
+        } else if (randomNumber > 1 && randomNumber <= 2) {
+          return 'Ball';
+        } else {
+          return 'Stump'
+        }
+      }
+  
+      function getResult(userMove, computerMove) {
+        if (userMove === 'Bat') {
+          if (computerMove === 'Ball') {
+            userWin++;
+            return 'You won.';
+          } else if (computerMove === 'Bat') {
+            tie++;
+            return `It's a tie`;
+          } else if (computerMove === 'Stump') {
+            computerwin++;
+            return 'Computer has won';
+
+          }
+        } else if (userMove === 'Ball') {
+          if (computerMove === 'Ball') {
+            tie++;
+            return `It's a tie`;
+          } else if (computerMove === 'Bat') {
+            computerwin++;
+            return 'Computer has won';
+            
+          } else if (computerMove === 'Stump') {
+            userWin++;
+            return 'You won.';
+
+          }
+        } else {
+          if (computerMove === 'Ball') {
+            return 'Computer has won';
+            computerwin++;
+          } else if (computerMove === 'Bat') {
+            userWin++;
+            return 'You won.';
+          } else if (computerMove === 'Stump') {
+            tie++;
+            return `It's a tie`;
+          }
+        }
+      }
+      function display(userWin,computerwin,tie){
+        document.querySelector('#item1').innerHTML = 'Number of times You won '+userWin;
+      document.querySelector('#item2').innerHTML = 'Number of times computer won '+computerwin;
+      document.querySelector('#item3').innerHTML = 'Number of times its a tie '+tie;
+      }
+
+  
+      function showResult(userMove, computerMove, resultMsg) {
+        alert(`You have chosen ${userMove}. Computer choice is ${computerMove} and ${resultMsg}`);
+
+      }
+      var userWin = 0;
+      var computerwin = 0;
+      var tie = 0;
+      document.querySelector('#item1').innerHTML = 'Number of times You won '+userWin;
+      document.querySelector('#item2').innerHTML = 'Number of times computer won '+computerwin;
+      document.querySelector('#item3').innerHTML = 'Number of times its a tie '+tie;
+
+      </script>
+</body>
+</html>
